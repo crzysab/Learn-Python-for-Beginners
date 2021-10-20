@@ -1,11 +1,40 @@
-class animal():
-    def eat(self):
-        print("Eating : ")
-class dog(animal):
-    def bark(self):
-        print("barking")
+# Definisikan class Karyawan (sebagai base class)
+class Karyawan: 
+    nama_perusahaan = 'Setia Sejati'
+    insentif_lembur = 250000
+    def __init__(self, nama, usia, pendapatan): 
+        self.nama = nama
+        self.usia = usia 
+        self.pendapatan = pendapatan 
+        self.pendapatan_tambahan = 0
+    def lembur(self):
+        self.pendapatan_tambahan += self.insentif_lembur 
+    def tambahan_proyek(self, insentif_proyek):
+        self.pendapatan_tambahan += insentif_proyek 
+    def total_pendapatan(self):
+        return self.pendapatan + self.pendapatan_tambahan
 
-d = dog()
-d.eat()
-d.bark()
+# Buat class turunan (sebagai inherit class) dari class karyawan, 
+# yaitu class AnalisData
+class AnalisData(Karyawan):
+    def __init__(self, nama, usia, pendapatan):
+    # melakukan pemanggilan konstruktur class Karyawan 
+        super().__init__(nama, usia, pendapatan)
+# Buat kembali class turunan (sebagai inherit class) dari class karyawan,  
+# yaitu class IlmuwanData
 
+class IlmuwanData(Karyawan):
+    # mengubah atribut insentif_lembur yang digunakan pada fungsi lembur()
+    insentif_lembur = 500000
+    def __init__(self, nama, usia, pendapatan): 
+        super().__init__(nama, usia, pendapatan)
+
+# Buat objek karyawan yang bekerja sebagai AnalisData
+budi = AnalisData('Budi', 25, 8500000)
+budi.lembur()
+print("Pendapatan Budi : ",budi.total_pendapatan())
+
+# Buat objek karyawan yang bekerja sebagai IlmuwanData
+siti = IlmuwanData('Siti', 28, 13000000)
+siti.lembur()
+print("Pendapatan Siti : ",siti.total_pendapatan())
