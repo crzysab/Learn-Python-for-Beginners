@@ -1,16 +1,33 @@
-class dog():
-    def sound(self):
-        print("bow bow")
+# Definisikan class Karyawan (sebagai base class)
+class Karyawan:
+    nama_perusahaan = 'Setia Sejati'
+    insentif_lembur = 250000
+    def __init__(self, nama, usia, pendapatan):
+        self.nama = nama
+        self.usia = usia
+        self.pendapatan = pendapatan
+        self.pendapatan_tambahan = 0
+    def lembur(self):
+        self.pendapatan_tambahan += self.insentif_lembur
+    def tambahan_proyek(self, insentif_proyek):
+        self.pendapatan_tambahan += insentif_proyek
+    def total_pendapatan(self):
+        return self.pendapatan + self.pendapatan_tambahan
 
-class cat():
-    def sound(self):
-        print("miaw miaw")
+# Buat class turunan (sebagai inherit class) dari class karyawan,
+# yaitu class AnalisData
+class AnalisData(Karyawan):
+    def __init__(self, nama, usia, pendapatan):
+    # melakukan pemanggilan konstruktur class Karyawan
+        super().__init__(nama, usia, pendapatan)
+    # menerapkan polymorphism dengan mendefinisikan kembali fungsi
+    # lembur() pada class AnalisData
+    def lembur(self):
+        # pendapatan tambahan pada class AnalisData sebesar
+        # 10 % dari pendapatannya.
+        self.pendapatan_tambahan += int(self.pendapatan*0.1)
 
-def makeSound(animaltype):
-    animaltype.sound()
-
-d1 = dog()
-c1 = cat()
-
-makeSound(d1)
-makeSound(c1)
+# Buat objek karyawan yang bekerja sebagai AnalisData
+budi = AnalisData('Budi', 25, 8500000)
+budi.lembur()
+print(budi.total_pendapatan())
